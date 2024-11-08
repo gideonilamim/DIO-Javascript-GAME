@@ -1,0 +1,50 @@
+* {
+ 
+  color: bisque;
+  font-family: "Bangers", cursive;
+}
+body {
+  background-color: black;
+}
+
+#selectPlayer{
+  display: flex;
+  flex-direction: column;
+  width: 900px;
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  text-align: center;
+  font-size: 40px;
+
+}
+
+
+#playerImg{
+   
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+ 
+}
+#playerImg img{
+  height: 150px;
+  padding: 60px;
+  transition: 1s;
+}
+#playerImg img:hover{
+  height: 170px;
+  border-style: solid;
+  border-color: darkorange;
+  border: 3px;
+  transition: 1s;
+}
+
+#obstacles,
+#bull,
+#egg,
+#toads,
+#larva {
+  display: none;
+}
