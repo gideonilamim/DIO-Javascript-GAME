@@ -14,6 +14,7 @@ const players  = [
     power : 40,
     special : 80,
     life:1000,
+    weapon:'shuriken',
     src: './players/ninja.jpg'
   }, 
   {
@@ -21,6 +22,7 @@ const players  = [
     power : 40,
     special : 60,
     life:1000,
+    weapon:'artes marciais',    
     src: './players/monk.jpg'
   },
   {
@@ -28,6 +30,7 @@ const players  = [
     power : 20,
     special : 120,
     life:1000,
+    weapon:'magia',
     src: './players/wizard.jpg'
   },
   {
@@ -35,6 +38,7 @@ const players  = [
     power : 50,
     special : 60,
     life:1000,
+    weapon:'espada',
     src: './players/warrior.jpg'
   }
  
@@ -103,15 +107,19 @@ class Player {
     this.special = player.special;
     this.life = player.life;
     this.src = player.src;
+    this.weapon = player.weapon;
+    this.hit;
+    this.message;
   }
 
   // attack mode
-  attack(context) {
-    
-    
+  attack(dice) {
+    this.message = `Você está atacando usando ${this.weapon}`
+    this.hit = this.power * dice;
   }
-
-  
+  defend(){
+    this.message = `Você conseguiu se defender.`
+  }
 }
 
 class Enemy {
@@ -126,8 +134,12 @@ class Enemy {
   }
 
   // attack mode
-  attack(context) {
-    
+  attack(dice) {
+    this.message = `${this.name} está te atacando.`
+    this.hit = this.power * dice;
+  }
+  defend(){
+    this.message = `${this.name} conseguiu se defender.`
   }
   
 }
@@ -199,7 +211,7 @@ function selectPlayer (selection) {
 
 function rollDice(){
   let diceText = document.getElementById('dice');
-  let number = Math.floor(Math.random()* 6 + 1);
+  let number = Math.floor(Math.random()* 6);
   let e = 1;
 
   for (i = 1; i < (6 * 3) + number+1; i++){
@@ -232,20 +244,38 @@ function updateLifeBar(id, target){
   
 }
 
-async function attack(target, power, lifeBarId){
+function updateAttackText (text){
+  let messageField = document.getElementById('messageField');
+  messageField.innerHTML = text;
+  setTimeout(()=>{
+    messageField.innerHTML = '';
+  },1000);
+}
+
+function attack(attacker, target, power, lifeBarId){
   let dice = rollDice();
   let damage = dice * power;
+  let text;
+
   
+    attacker.attack();
+    text = attacker.message;
+    updateAttackText(attacker.message);
+    
+
   //make sure life is not negative
   setTimeout(()=>{
     if ((target.life - damage) > 0){
      target.life = target.life - damage;
-  } else{
+    } else{
      target.life = 0;
-  }
+    } 
+    if( dice == 0){// if the dice is 0, the target defends themselves
+      target.defend();
+      text = target.message;
+      updateAttackText(text);
+    }
   updateLifeBar(lifeBarId, target);
-  
-  console.log('damage');
   },1000)
   
   
@@ -259,9 +289,9 @@ function startBattle (){
 
      attackBtn.addEventListener("click", () =>{
         attackBtn.disabled = true;
-        attack(enemy, player.power, 'enemyLife');
+          attack(player, enemy, player.power, 'enemyLife');
         setTimeout(()=>{
-          attack(player, player.power, 'playerLife');
+          attack(enemy, player, player.power, 'playerLife');
         },5000);
         setTimeout(()=>{
           attackBtn.disabled = false;
