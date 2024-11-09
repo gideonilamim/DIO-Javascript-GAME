@@ -3,6 +3,7 @@
 let playerSelector = document.getElementsByClassName('playerSelector');
 let selectPlayerPanel = document.getElementById('selectPlayerPanel');
 let selectEnemyPanel = document.getElementById('selectEnemyPanel');
+let enemyImg = document.getElementById('enemyImg')
 
 
 const players  = [
@@ -32,29 +33,50 @@ const players  = [
 
 const enemies  = [
   {
-    name:'Dead Stump',
-    src: './images/7.jpg',
+    name:'Swamp Monster',
+    src: './enemies/1.jpg',
     power : 40,
     special : 80,
     life: 1000
   }, 
   {
-    name:'monk',
-    src: './images/ninja.jpg',
+    name:'Mountain Lerker',
+    src: './enemies/2.jpg',
     power : 40,
     special : 60,
     life: 1000
   },
   {
-    name:'wizard',
-    src: './images/ninja.jpg',
+    name:'Cave Dwarf',
+    src: './enemies/3.jpg',
     power : 20,
     special : 120,
     life: 1000
   },
   {
-    name:'Warrior',
-    src: './images/ninja.jpg',
+    name:'Shadow Warrior',
+    src: './enemies/4.jpg',
+    power : 50,
+    special : 60,
+    life: 1000
+  },
+  {
+    name:'Fire Crosser',
+    src: './enemies/5.jpg',
+    power : 50,
+    special : 60,
+    life: 1000
+  },
+  {
+    name:'Wizard of the Mountains',
+    src: './enemies/6.jpg',
+    power : 50,
+    special : 60,
+    life: 1000
+  },
+  {
+    name:'dead Stump',
+    src: './enemies/7.jpg',
     power : 50,
     special : 60,
     life: 1000
@@ -100,10 +122,41 @@ class Enemy {
   
 }
 
+let shuffleEnemies = (enemies) =>{
+  let numberOfEnemies = enemies.length; // get's the number of items in the array
+  let randomIndex = Math.floor(Math.random()* (enemies.length));
+
+  let selectedEnemy = enemies[randomIndex]; // this will select the enemy
+  let times = 3; // how many times it will shuffle through the enemy arrays. it's only for animation purpose.
+
+  let e = 0;
+  console.log('the enemy is: ' + selectedEnemy.name);
+  console.log('n enemy is: ' + randomIndex);
+
+  for (let i = 0; i < (numberOfEnemies * times) + randomIndex + 1; i++) {
+    setTimeout(function () {
+        //it causes to shuffle over and over again through the enemy array
+        if (e == numberOfEnemies) {
+            e = 0;
+        }
+        //console.log(i + " e = " + e);
+        //console.log(enemies[e].name);
+        enemyImg.src = enemies[e].src;
+        e++;
+    }, i * 50);
+    
+}
+
+
+  return selectedEnemy;
+};
+
 function selectEnemy(){
-  new Enemy(enemies[0]);
-  console.log(selectEnemyPanel.getElementsByClassName('playerSelector'));
-  selectEnemyPanel.getElementsByClassName('enemy').src = './images/warrior.jpg';
+  let selectedEnemy = shuffleEnemies(enemies);
+  //let enemy = new Enemy(selectedEnemy);
+  selectEnemyPanel.classList.remove("hidden")
+  console.log(enemyImg);
+  //enemyImg.src = enemy.src;
 };
 
 //this is a function to select the player
