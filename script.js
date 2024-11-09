@@ -1,8 +1,7 @@
 //addEventListener('load' --> when the page loads
 
 let playerSelector = document.getElementsByClassName('playerSelector');
-let selectPlayerPanel = document.getElementById('selectPlayerPanel');
-let selectEnemyPanel = document.getElementById('selectEnemyPanel');
+
 let enemyImg = document.getElementById('enemyImg')
 let attackBtn = document.getElementById('atackBtn');
 
@@ -192,11 +191,11 @@ function selectEnemy(){
   enemy = new Enemy(selectedEnemy);
 
   //display the panel
-  selectEnemyPanel.classList.remove("hidden")
+  displayElementById('selectEnemyPanel', true);
 
   //display the chosen enemy for a while then proceed to the battle ground
   setTimeout(()=>{
-    selectEnemyPanel.classList.add("hidden");
+    displayElementById('selectEnemyPanel', false);
     startBattle();
   },3000);
     
@@ -205,7 +204,8 @@ function selectEnemy(){
 //this is a function to select the player
 function selectPlayer (selection) {
   player = new Player(selection);
-  selectPlayerPanel.classList.add("hidden");
+  displayElementById('selectPlayerPanel', false);
+  
   selectEnemy();
 }
 
@@ -217,7 +217,6 @@ function rollDice(){
   for (i = 0; i <= (7 * 1) + number; i++){
     setTimeout(function(){
         diceText.innerHTML = e;
-        console.log(e + " " + i + " " + number)
         if (e < 6){
           e++;
         }else{
@@ -255,12 +254,13 @@ function updateAttackText (text){
 function attack(attacker, target, power, lifeBarId){
   let dice = rollDice();
   let damage = dice * power;
+
   let text;
-  console.log(dice);
+  
   attacker.attack();
   text = attacker.message;
   updateAttackText(attacker.message);
-    
+  
 
   //make sure life is not negative
   setTimeout(()=>{
@@ -268,12 +268,15 @@ function attack(attacker, target, power, lifeBarId){
      target.life = target.life - damage;
     } else{
      target.life = 0;
+     endGame(attacker);
     } 
+
     if( dice == 0){// if the dice is 0, the target defends themselves
       target.defend();
       text = target.message;
       updateAttackText(text);
     }
+
   updateLifeBar(lifeBarId, target);
   },2000)
   
@@ -299,17 +302,35 @@ function startBattle (){
   
 }
 
-function displayBattleGround () {
-   let battleGround = document.getElementById('battleGround');
+function displayElementById(id, toggle){
+  let element = document.getElementById(id);
+  toggle? element.classList.remove('hidden'): element.classList.add('hidden');
+}
+
+function displayBattleGround (toggle) {
+   let id = 'battleGround';
    let playerImage = document.getElementById('playerPicture');
    let enemyImage = document.getElementById('enemyPicture');
-   battleGround.classList.remove('hidden');
+
+   displayElementById(id, true)
 
    //display pictures
    playerImage.src = player.src;
    enemyImage.src = enemy.src;
   console.log(player)
 
+}
+
+function endGame(winner){
+
+  let winnerText = document.getElementById("winnerText");
+  let winnerImg = document.getElementById("winnerImg"); 
+
+  displayElementById('battleGround', false);
+  displayElementById('winnerDisplay', true);
+
+  winnerText.innerHTML =  `o encedor é ${winner.name}`;
+  winnerImg.src = winner.src;
 }
 
 
