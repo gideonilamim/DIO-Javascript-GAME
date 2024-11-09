@@ -6,6 +6,7 @@ let selectEnemyPanel = document.getElementById('selectEnemyPanel');
 let enemyImg = document.getElementById('enemyImg')
 
 
+
 const players  = [
   {
     name:'ninja',
@@ -122,6 +123,17 @@ class Enemy {
   
 }
 
+let player;
+let enemy;
+
+//displays anemy info
+function displayEnemyInfo(enemy) {
+  let textField = document.getElementById('enemyInfo');
+  textField.innerHTML = `name : ${enemy.name} <br/> Power: ${enemy.power} <br/> Life: ${enemy.life}` ;
+  console.log(textField.innerText);
+}
+
+//it shuffles the enemies and chooses one
 let shuffleEnemies = (enemies) =>{
   let numberOfEnemies = enemies.length; // get's the number of items in the array
   let randomIndex = Math.floor(Math.random()* (enemies.length));
@@ -134,34 +146,43 @@ let shuffleEnemies = (enemies) =>{
   console.log('n enemy is: ' + randomIndex);
 
   for (let i = 0; i < (numberOfEnemies * times) + randomIndex + 1; i++) {
+    
     setTimeout(function () {
         //it causes to shuffle over and over again through the enemy array
         if (e == numberOfEnemies) {
             e = 0;
         }
-        //console.log(i + " e = " + e);
-        //console.log(enemies[e].name);
         enemyImg.src = enemies[e].src;
+
+        //when the shuffling is complete, display the info
+        if (i == (numberOfEnemies * times) + randomIndex){
+          displayEnemyInfo(selectedEnemy);
+        }
+
         e++;
+
     }, i * 50);
-    
 }
-
-
+  
   return selectedEnemy;
 };
 
+
+//create an enemy
 function selectEnemy(){
   let selectedEnemy = shuffleEnemies(enemies);
-  //let enemy = new Enemy(selectedEnemy);
+  enemy = new Enemy(selectedEnemy);
   selectEnemyPanel.classList.remove("hidden")
-  console.log(enemyImg);
-  //enemyImg.src = enemy.src;
+  
+  setTimeout(()=>{console.log(enemy)},10000)
+  //console.log(enemy);
+
+  
 };
 
 //this is a function to select the player
 function playerSelect (player) {
-  new Player(player);
+  player = new Player(player);
   selectPlayerPanel.classList.add("hidden");
   selectEnemy();
 }
