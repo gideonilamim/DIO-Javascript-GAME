@@ -69,16 +69,37 @@ body {
 }
 
 .lifeBar{
+  position: inherit;
   width: 400px;
   height: 30px;
   border: 2px solid #555;
   border-radius: 3px;
   overflow: hidden;
 }
+
+.right {
+
+}
+.left {
+  
+}
+
 .life{
+  position: relative;
+  z-index: 2;
   height: 70px;
+  width: 400px;
   background-color: orange;
 }
+.background{
+  position: relative;
+  top: -70px;
+  z-index: 1;
+  height: 70px;
+  width: 400px;
+  background-color: red;
+}
+
 
 #battleGround img{
   height: 150px;
@@ -89,6 +110,12 @@ body {
 
 .dice{
   width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid orange;
+  border-radius: 10px;
 }
 
 #atackBtn{
@@ -97,6 +124,7 @@ body {
   width: 90px;
   background-color: black;
   border: 2px solid;
+  font-size: 20px;
 }
 #atackBtn:disabled{
   border: 1px solid #999999;

@@ -18,7 +18,7 @@
     <div id="selectionWrapper">
             <div id="selectPlayerPanel">
               <div class='panelLayout'>
-                <spam>Select your player</spam>
+                <spam>Selecione o jogador</spam>
                 <div id="playerImg">
                     <div id="ninja">
                       <img  src="./players/ninja.jpg" class="playerSelector"/>
@@ -54,14 +54,14 @@
     <div id="battleGround" class="hidden panelLayout">
       <div class="battleGroundLayout">
           <div id="playerField" class="field">
-              <div class="lifeBar"><div id="playerLife" class="life"></div></div>    
+              <div class="lifeBar left"><div id="playerLife" class="life"></div><div class="background" ></div></div>    
               <div><img id="playerPicture"/></div>
           </div>
           <div id="middleField">
               <div class="dice"><spam id="dice"></spam></div>        
           </div>
           <div id="enemyField" class="field">
-            <div class="lifeBar"><div id="enemyLife" class="life" ></div></div>   
+            <div class="lifeBar right"><div id="enemyLife" class="life" ></div><div class="background" ></div></div>   
             <div><img id="enemyPicture"/></div>  
           </div>
       </div>
@@ -72,7 +72,7 @@
 
     <div id="winnerDisplay" class="hidden">
       <div class="winnerLayout">
-        <spam id="winnerText"> o vencedpor é vencedor.</spam>
+        <spam id="winnerText"></spam>
         <div><img id="winnerImg" src="./images/monk 1.jpg"></div>
       </div>
     </div>

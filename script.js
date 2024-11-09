@@ -53,7 +53,7 @@ const enemies  = [
     life: 1000
   }, 
   {
-    name:'Mountain Lerker',
+    name:'Mountain Lurker',
     src: './enemies/2.jpg',
     power : 40,
     special : 60,
@@ -329,7 +329,7 @@ function endGame(winner){
   displayElementById('battleGround', false);
   displayElementById('winnerDisplay', true);
 
-  winnerText.innerHTML =  `o encedor é ${winner.name}`;
+  winnerText.innerHTML =  `O vencedor é <br/>${winner.name}`;
   winnerImg.src = winner.src;
 }
 
