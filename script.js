@@ -11,22 +11,26 @@ const players  = [
   {
     name:'ninja',
     power : 40,
-    special : 80
+    special : 80,
+    src: './players/ninja.jpg'
   }, 
   {
     name:'monk',
     power : 40,
-    special : 60
+    special : 60,
+    src: './players/monk.jpg'
   },
   {
     name:'wizard',
     power : 20,
-    special : 120
+    special : 120,
+    src: './players/wizard.jpg'
   },
   {
     name:'Warrior',
     power : 50,
-    special : 60
+    special : 60,
+    src: './players/warrior.jpg'
   }
  
  
@@ -88,10 +92,11 @@ const enemies  = [
 
 class Player {
   constructor(player) {
-    this.player = player;
+    this.name = player.name;
     console.log("created a " + player.name);
     this.power = player.power;
     this.special = player.special;
+    this.src = player.src;
     console.log(this.power);
   }
 
@@ -107,13 +112,11 @@ class Player {
 class Enemy {
 
   constructor(enemy) {
-    this.enemy = enemy;
-    console.log("created a " + enemy.name);
-    this.src = enemy.src;
+    this.name = enemy.name;
     this.power = enemy.power;
     this.special = enemy.special;
     this.life = enemy.life;
-    console.log(this.power);
+    this.src = enemy.src;
   }
 
   // attack mode
@@ -123,8 +126,9 @@ class Enemy {
   
 }
 
-let player;
+//variable to store the chosen enemy and player
 let enemy;
+let player;
 
 //displays anemy info
 function displayEnemyInfo(enemy) {
@@ -142,8 +146,6 @@ let shuffleEnemies = (enemies) =>{
   let times = 3; // how many times it will shuffle through the enemy arrays. it's only for animation purpose.
 
   let e = 0;
-  console.log('the enemy is: ' + selectedEnemy.name);
-  console.log('n enemy is: ' + randomIndex);
 
   for (let i = 0; i < (numberOfEnemies * times) + randomIndex + 1; i++) {
     
@@ -167,29 +169,47 @@ let shuffleEnemies = (enemies) =>{
   return selectedEnemy;
 };
 
-
 //create an enemy
 function selectEnemy(){
   let selectedEnemy = shuffleEnemies(enemies);
   enemy = new Enemy(selectedEnemy);
-  selectEnemyPanel.classList.remove("hidden")
-  
-  setTimeout(()=>{console.log(enemy)},10000)
-  //console.log(enemy);
 
-  
+  //display the panel
+  selectEnemyPanel.classList.remove("hidden")
+
+  //display the chosen enemy for a while then proceed to the battle ground
+  setTimeout(()=>{
+    selectEnemyPanel.classList.add("hidden");
+    displayBattleGround ();
+  },3000);
+    
 };
 
 //this is a function to select the player
-function playerSelect (player) {
-  player = new Player(player);
+function selectPlayer (selection) {
+  player = new Player(selection);
   selectPlayerPanel.classList.add("hidden");
   selectEnemy();
 }
 
+//enter erena.  This displays the battle ground
+function displayBattleGround () {
+   let battleGround = document.getElementById('battleGround');
+   let playerImage = document.getElementById('playerPicture');
+   let enemyImage = document.getElementById('enemyPicture');
+   battleGround.classList.remove('hidden');
+
+   //display pictures
+   playerImage.src = player.src;
+   enemyImage.src = enemy.src;
+  console.log(player)
+
+}
+
+
 //to create a clickable image
 for (let i = 0; i < 4; i++){
-    playerSelector[i].addEventListener("click", () =>{ playerSelect(players[i])});
+    playerSelector[i].addEventListener("click", () =>{ selectPlayer(players[i])});
 }
 
 

@@ -26,6 +26,7 @@ body {
   justify-content: center;
   margin-top: 50px;
 }
+
 #playerImg img{
   height: 150px;
   padding: 60px;
@@ -46,6 +47,32 @@ body {
 
 .infoText{
   font-size: 30px;
+}
+
+.battleGroundLayout{
+  display: flex;
+  flex-direction: row;
+  width: 700px;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  text-align: center;
+  font-size: 40px;
+}
+.lifeBar{
+  width: 100px;
+  height: 30px;
+  border: 5px solid #555;
+  border-radius: 3px;
+}
+
+#battleGround img{
+  height: 150px;
+  margin: 60px;
+  border: 5px solid #555;
+  border-radius: 30px;
 }
 
 .hidden {
