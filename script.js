@@ -101,7 +101,7 @@ class Player {
     this.totalLife = player.life;
     this.power = player.power;
     this.special = player.special;
-    this.life;
+    this.life = player.life;
     this.src = player.src;
   }
 
@@ -140,7 +140,6 @@ let player;
 function displayEnemyInfo(enemy) {
   let textField = document.getElementById('enemyInfo');
   textField.innerHTML = `name : ${enemy.name} <br/> Power: ${enemy.power} <br/> Life: ${enemy.life}` ;
-  console.log(textField.innerText);
 }
 
 //it shuffles the enemies and chooses one
@@ -199,8 +198,24 @@ function selectPlayer (selection) {
 }
 
 function rollDice(){
+  let diceText = document.getElementById('dice');
   let number = Math.floor(Math.random()* 6 + 1);
-  return number;
+  let e = 1;
+
+  for (i = 1; i < (6 * 3) + number+1; i++){
+    setTimeout(function(){
+        diceText.innerHTML = e;
+
+        if (e < 6){
+          e++;
+        }else{
+          e=1; //restart e
+        }
+        
+      }, i * 30);
+  } 
+
+  return number  
 }
 
 function updateLifeBar(id, target){
@@ -217,19 +232,24 @@ function updateLifeBar(id, target){
   
 }
 
-function attack(target, power, lifeBarId){
+async function attack(target, power, lifeBarId){
   let dice = rollDice();
   let damage = dice * power;
   
   //make sure life is not negative
-  if ((target.life - damage) > 0){
-    target.life = target.life - damage;
+  setTimeout(()=>{
+    if ((target.life - damage) > 0){
+     target.life = target.life - damage;
   } else{
-    target.life = 0;
+     target.life = 0;
   }
-  
   updateLifeBar(lifeBarId, target);
-  console.log(target.life);
+  
+  console.log('damage');
+  },1000)
+  
+  
+  
 }
 
 
@@ -237,8 +257,16 @@ function attack(target, power, lifeBarId){
 function startBattle (){
   displayBattleGround ();
 
-  attackBtn.addEventListener("click", () =>{ attack(enemy, player.power, 'enemyLife')})
-
+     attackBtn.addEventListener("click", () =>{
+        attackBtn.disabled = true;
+        attack(enemy, player.power, 'enemyLife');
+        setTimeout(()=>{
+          attack(player, player.power, 'playerLife');
+        },5000);
+        setTimeout(()=>{
+          attackBtn.disabled = false;
+        },10000);
+    })  
   
 }
 

@@ -86,8 +86,8 @@ body {
   border-radius: 30px;
 }
 
-#dice{
-  width: 70;
+.dice{
+  width: 70px;
 }
 
 .hidden {
