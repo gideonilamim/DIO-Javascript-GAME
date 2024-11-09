@@ -310,10 +310,16 @@ function displayElementById(id, toggle){
 function displayBattleGround (toggle) {
    let id = 'battleGround';
    let playerImage = document.getElementById('playerPicture');
+   let playerNameText = document.getElementById('playerName');
+   let enemyNameText = document.getElementById('enemyName');
    let enemyImage = document.getElementById('enemyPicture');
+
 
    displayElementById(id, true)
 
+   playerNameText.innerHTML = player.name;
+   enemyNameText.innerHTML = enemy.name;
+   
    //display pictures
    playerImage.src = player.src;
    enemyImage.src = enemy.src;
