@@ -52,7 +52,7 @@ body {
 .battleGroundLayout{
   display: flex;
   flex-direction: row;
-  width: 700px;
+  
   justify-content: space-between;
   align-items: center;
   margin-left: auto;
@@ -61,11 +61,23 @@ body {
   text-align: center;
   font-size: 40px;
 }
+.field{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .lifeBar{
-  width: 100px;
+  width: 400px;
   height: 30px;
-  border: 5px solid #555;
+  border: 2px solid #555;
   border-radius: 3px;
+  overflow: hidden;
+}
+.life{
+  width: 58px;
+  height: 70px;
+  background-color: orange;
 }
 
 #battleGround img{
@@ -73,6 +85,10 @@ body {
   margin: 60px;
   border: 5px solid #555;
   border-radius: 30px;
+}
+
+#dice{
+  width: 70;
 }
 
 .hidden {
