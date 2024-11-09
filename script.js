@@ -4,6 +4,7 @@ let playerSelector = document.getElementsByClassName('playerSelector');
 let selectPlayerPanel = document.getElementById('selectPlayerPanel');
 let selectEnemyPanel = document.getElementById('selectEnemyPanel');
 let enemyImg = document.getElementById('enemyImg')
+let attackBtn = document.getElementById('atackBtn');
 
 
 
@@ -12,24 +13,28 @@ const players  = [
     name:'ninja',
     power : 40,
     special : 80,
+    life:1000,
     src: './players/ninja.jpg'
   }, 
   {
     name:'monk',
     power : 40,
     special : 60,
+    life:1000,
     src: './players/monk.jpg'
   },
   {
     name:'wizard',
     power : 20,
     special : 120,
+    life:1000,
     src: './players/wizard.jpg'
   },
   {
     name:'Warrior',
     power : 50,
     special : 60,
+    life:1000,
     src: './players/warrior.jpg'
   }
  
@@ -93,11 +98,11 @@ const enemies  = [
 class Player {
   constructor(player) {
     this.name = player.name;
-    console.log("created a " + player.name);
+    this.totalLife = player.life;
     this.power = player.power;
     this.special = player.special;
+    this.life;
     this.src = player.src;
-    console.log(this.power);
   }
 
   // attack mode
@@ -113,6 +118,7 @@ class Enemy {
 
   constructor(enemy) {
     this.name = enemy.name;
+    this.totalLife = enemy.life;
     this.power = enemy.power;
     this.special = enemy.special;
     this.life = enemy.life;
@@ -180,7 +186,7 @@ function selectEnemy(){
   //display the chosen enemy for a while then proceed to the battle ground
   setTimeout(()=>{
     selectEnemyPanel.classList.add("hidden");
-    displayBattleGround ();
+    startBattle();
   },3000);
     
 };
@@ -192,7 +198,50 @@ function selectPlayer (selection) {
   selectEnemy();
 }
 
+function rollDice(){
+  let number = Math.floor(Math.random()* 6 + 1);
+  return number;
+}
+
+function updateLifeBar(id, target){
+  let lifeBar = document.getElementById(id);
+  let life = target.life;
+  let totalLife = target.totalLife;
+  /**it's proportional to the bar width whici is 400px
+   *   400px = totalLife
+   *   x  = life
+   * **/
+
+  let width = (life * 400) / totalLife;
+  lifeBar.style = `width:${width}px`;
+  
+}
+
+function attack(target, power, lifeBarId){
+  let dice = rollDice();
+  let damage = dice * power;
+  
+  //make sure life is not negative
+  if ((target.life - damage) > 0){
+    target.life = target.life - damage;
+  } else{
+    target.life = 0;
+  }
+  
+  updateLifeBar(lifeBarId, target);
+  console.log(target.life);
+}
+
+
 //enter erena.  This displays the battle ground
+function startBattle (){
+  displayBattleGround ();
+
+  attackBtn.addEventListener("click", () =>{ attack(enemy, player.power, 'enemyLife')})
+
+  
+}
+
 function displayBattleGround () {
    let battleGround = document.getElementById('battleGround');
    let playerImage = document.getElementById('playerPicture');
