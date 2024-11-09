@@ -15,14 +15,43 @@
   </head>
   <body>
      
-    <div id="selectPlayer">
-      <spam>Select your player</spam>
-    <div id="playerImg">
-      <img id="ninja" src="./images/ninja.jpg" class="playerSelector"/>
-      <img id="monk" src="./images/monk 4.jpg" class="playerSelector"/>
-      <img id="wizard" src="./images/wizard.jpg" class="playerSelector"/>
-      <img id="warrior" src="./images/warrior.jpg" class="playerSelector"/>
-    </div>
+    <div id="selectionWrapper">
+            <div id="selectPlayerPanel">
+              <div class='selectPanel'>
+                <spam>Select your player</spam>
+                <div id="playerImg">
+                    <div id="ninja">
+                      <img  src="./images/ninja.jpg" class="playerSelector"/>
+                      <span>ninja</span>
+                    </div>
+                    <div id="monk">
+                      <img  src="./images/monk 4.jpg" class="playerSelector"/>
+                      <span>monk</span>
+                    </div>
+                    <div>
+                      <img id="wizard" src="./images/wizard.jpg" class="playerSelector"/>
+                      <span>wizard</span>
+                    </div><div>
+                      <img id="warrior" src="./images/warrior.jpg" class="playerSelector"/>
+                      <span>warrior</span>
+                    </div>              
+                </div>
+              </div>
+            </div>
+
+            <div id='selectEnemyPanel' class="">
+              <div class='selectPanel hidden'>
+                <spam>Você vai lutar contra o</spam>
+              <div id="enemyImg">
+                  <div id="ninja">
+                    <img  class="enemy"/>
+                    <span>ninja</span>
+                  </div> 
+              </div>
+                        
+              </div>
+            </div>
+      
     </div>
 
     <script src="script.js"></script>

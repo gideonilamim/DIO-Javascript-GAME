@@ -7,7 +7,7 @@ body {
   background-color: black;
 }
 
-#selectPlayer{
+.selectPanel{
   display: flex;
   flex-direction: column;
   width: 900px;
@@ -17,16 +17,13 @@ body {
   margin-top: 100px;
   text-align: center;
   font-size: 40px;
-
 }
-
 
 #playerImg{
    
   display: flex;
   justify-content: center;
   margin-top: 50px;
- 
 }
 #playerImg img{
   height: 150px;
@@ -41,10 +38,7 @@ body {
   transition: 1s;
 }
 
-#obstacles,
-#bull,
-#egg,
-#toads,
-#larva {
+
+.hidden {
   display: none;
 }
