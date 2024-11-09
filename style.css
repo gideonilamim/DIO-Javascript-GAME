@@ -90,6 +90,14 @@ body {
   width: 70px;
 }
 
+#atackBtn{
+  height: 30px;
+  color: orange;
+  width: 90px;
+  background-color: black;
+  border: 2px solid;
+}
+
 .hidden {
   display: none;
 }
