@@ -212,16 +212,16 @@ function selectPlayer (selection) {
 function rollDice(){
   let diceText = document.getElementById('dice');
   let number = Math.floor(Math.random()* 6);
-  let e = 1;
+  let e = 0;
 
-  for (i = 1; i < (6 * 3) + number+1; i++){
+  for (i = 0; i <= (7 * 1) + number; i++){
     setTimeout(function(){
         diceText.innerHTML = e;
-
+        console.log(e + " " + i + " " + number)
         if (e < 6){
           e++;
         }else{
-          e=1; //restart e
+          e=0; //restart e
         }
         
       }, i * 30);
@@ -248,19 +248,18 @@ function updateAttackText (text){
   let messageField = document.getElementById('messageField');
   messageField.innerHTML = text;
   setTimeout(()=>{
-    messageField.innerHTML = '';
-  },1000);
+    messageField.innerHTML = '  ';
+  },2000);
 }
 
 function attack(attacker, target, power, lifeBarId){
   let dice = rollDice();
   let damage = dice * power;
   let text;
-
-  
-    attacker.attack();
-    text = attacker.message;
-    updateAttackText(attacker.message);
+  console.log(dice);
+  attacker.attack();
+  text = attacker.message;
+  updateAttackText(attacker.message);
     
 
   //make sure life is not negative
@@ -276,7 +275,7 @@ function attack(attacker, target, power, lifeBarId){
       updateAttackText(text);
     }
   updateLifeBar(lifeBarId, target);
-  },1000)
+  },2000)
   
   
   
